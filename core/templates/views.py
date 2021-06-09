@@ -35,7 +35,6 @@ def files(request):
     context = {'files': files,}
     return render(request, 'files.html', context)
 
-@login_required(login_url="/login/")
 def output(request):
     import os, sys, secrets
     import django
@@ -83,5 +82,5 @@ def output(request):
                     print("All files have been saved")
     get_files()
     context = {'files': files,}
-    # return render(request, 'tables-data.html', context)
+    # return render(request, 'files.html', context)
     return redirect("files")
