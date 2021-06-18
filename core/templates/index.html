@@ -16,8 +16,9 @@
 						<h5 class="text-white op-7 mb-2">File Integrity Monitor</h5>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
-						<a href="{% url 'files' %}" class="btn btn-white btn-border btn-round mr-2">Manage Files</a>
-						<a href="#" class="btn btn-secondary btn-round">Manage Staff</a>
+						<a href="{% url 'files' %}" class="btn btn-white btn-border btn-round mr-2">Monitor Files</a>
+						<a href="" class="btn btn-white btn-border btn-round mr-2">View Staff</a>
+						<a href="" class="btn btn-white btn-border btn-round mr-2">View Departments</a>
 					</div>
 				</div>
 			</div>
@@ -46,7 +47,11 @@
 									</h4>
 									{% endif %}
 									{% endwith %}
-									<h6 class="fw-bold mt-3 mb-0">Manage Staff</h6>
+									<a href=""
+									style="text-decoration: none;"
+									>
+										<h6 class="fw-bold mt-3 mb-0">Manage Users</h6>
+									</a>
 								</div>
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									<!-- <div id="circles-2"></div> -->
@@ -64,7 +69,11 @@
 									</h4>
 									{% endif %}
 									{% endwith %}
-									<h6 class="fw-bold mt-3 mb-0">View All</h6>
+									<a href="{% url 'files' %}"
+									style="text-decoration: none;"
+									>
+										<h6 class="fw-bold mt-3 mb-0">View All</h6>
+									</a>
 								</div>
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									<!-- <div id="circles-3"></div> -->
@@ -82,7 +91,11 @@
 									</h4>
 									{% endif %}
 									{% endwith %}
-									<h6 class="fw-bold mt-3 mb-0">Manage Departments</h6>
+									<a href=""
+									style="text-decoration: none;"
+									>
+										<h6 class="fw-bold mt-3 mb-0">Manage Departments</h6>
+									</a>
 								</div>
 							</div>
 						</div>
