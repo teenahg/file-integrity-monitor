@@ -3,13 +3,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-from app.models import File, User
+from app.models import File
 
 @login_required(login_url="/login/")
 def index(request):
     files = File.objects.all()
-    users = User.objects.all()
-    context = {'files':files, 'users': users,}
+    # users = User.objects.all()
+    context = {'files':files,}
     context['segment'] = 'index'
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser, User
+# from django.contrib.auth.models import AbstractUser, User
 from django.urls import reverse
 # from django.db.models.signals import post_save
 
@@ -29,9 +29,9 @@ class File(models.Model):
     # def get_absolute_url(self):
     #     return reverse('filemanager:file_detail', args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
 
-class User(AbstractUser):
-    is_organiser = models.BooleanField(default=True)
-    is_agent = models.BooleanField(default=False)
+# class User(AbstractUser):
+    # is_organiser = models.BooleanField(default=True)
+    # is_agent = models.BooleanField(default=False)
 
 # class Department(models.Model):
 #     pass

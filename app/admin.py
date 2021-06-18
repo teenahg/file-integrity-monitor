@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import File, User
+from .models import File
+# from .models import User
 
-admin.site.register(User)
+# admin.site.register(User)
 # admin.site.register(Profile)
 # admin.site.register(Department)
 
