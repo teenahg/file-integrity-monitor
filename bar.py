@@ -5,7 +5,7 @@ django.setup()
 
 from filemanager.models import Post
 
-the_string = 'Document, The File, My Name, Corel'
+the_string = 'the Document, The File, My Name, Corel'
 usage = []
 edited = the_string.split(', ')
 for index, char in enumerate(edited):
@@ -14,4 +14,4 @@ for index, char in enumerate(edited):
         name = usage,
     )
     new_post.save()
-    print("saved")
+    print("file saved")
