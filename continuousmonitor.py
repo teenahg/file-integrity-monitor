@@ -10,6 +10,7 @@ while True:
         hash.update(myFilesEncoded)
     md5 = hash.hexdigest()
     if file in files and md5 != files[file]:
-      print ('File change(s) alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
+      print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
+      print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
     files[file]=md5
-  time.sleep(1)
+  # time.sleep(1)
