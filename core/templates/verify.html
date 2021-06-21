@@ -1,8 +1,156 @@
-{% for stored_file in stored_files %}
-{{ stored_file.hash_value }}
-<br>
-{% endfor %}
-<br><hr>
-{% for file in files %}
-{{file}}
-{% endfor %}
+{% extends "layouts/base.html" %}
+
+{% block title %} Checksum Verification {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">File Comparison</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="{% url 'home' %}">
+							<i class="flaticon-home"></i>
+							&nbsp; &nbsp;Home
+						</a>
+					</li>
+					<!-- <li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li> -->
+					<!-- <li class="nav-item">
+						<a href="#">Tables</a>
+					</li> -->
+					<!-- <li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li> -->
+					<!-- <li class="nav-item">
+						<a href="#">Datatables</a>
+					</li> -->
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">An analysis of stored checksum against current checksum &nbsp; &nbsp;
+								<!-- <a href="">
+									<button class="btn btn-white btn-border btn-round mr-2">Add New Agent</button>
+								</a> -->
+							</h4>							
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="basic-datatables" class="display table table-striped table-hover" >
+									<thead>
+										<tr>
+											<th>Filename</th>
+											<th>Stored Hash</th>
+											<th>Current Hash</th>
+											<th>Status</th>
+											<!-- <th>Created On</th>
+											<th>Updated On</th>
+											<th>Slug</th> -->
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Filename</th>
+											<th>Stored Hash</th>
+											<th>Current Hash</th>
+											<th>Status</th>
+											<!-- <th>Created On</th>
+											<th>Updated On</th>
+											<th>Slug</th> -->
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for stored_file in stored_files %}
+										<tr>
+											<td>{{ stored_file.name }}</td>
+											<td>{{ stored_file.hash_value }}</td>
+                                            {% for file in files %}
+											<td>{{ file }}</td>
+                                            {% endfor %}
+											<td>{{ stored_file.slug }}</td>
+											<!-- <td>{{ file.created }}</td>
+											<td>{{ file.updated }}</td>
+											<td>{{ file.slug }}</td> -->
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+
+				
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo2.js"></script>
+	<script >
+		$(document).ready(function() {
+			$('#basic-datatables').DataTable({
+			});
+
+			$('#multi-filter-select').DataTable( {
+				"pageLength": 5,
+				initComplete: function () {
+					this.api().columns().every( function () {
+						var column = this;
+						var select = $('<select class="form-control"><option value=""></option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+								);
+
+							column
+							.search( val ? '^'+val+'$' : '', true, false )
+							.draw();
+						} );
+
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+					} );
+				}
+			});
+
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 5,
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
+		});
+	</script>
+
+{% endblock javascripts %}
+
+

@@ -8,7 +8,8 @@ urlpatterns = [
     path('files/', views.files, name='files'),
     path('output/', views.output),
     path('output/', views.output, name='script'),
-    # path('verify/', views.verify, name='verify'),
+    path('users/', views.users, name='users'),
+    path('verify/', views.verify, name='verify'),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
 ]

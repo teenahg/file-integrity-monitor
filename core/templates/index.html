@@ -17,8 +17,8 @@
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="{% url 'files' %}" class="btn btn-white btn-border btn-round mr-2">Monitor Files</a>
-						<a href="" class="btn btn-white btn-border btn-round mr-2">View Staff</a>
-						<a href="" class="btn btn-white btn-border btn-round mr-2">View Departments</a>
+						<a href="{% url 'users' %}" class="btn btn-white btn-border btn-round mr-2">View Staff</a>
+						<!-- <a href="" class="btn btn-white btn-border btn-round mr-2">View Departments</a> -->
 					</div>
 				</div>
 			</div>
@@ -28,8 +28,9 @@
 				<div class="col">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title">Overall statistics</div>
-							<div class="card-category">Overview of system operation</div>
+							<div class="card-title" style="text-align: center;">Overall statistics</div>
+							<div class="card-category" style="text-align: center;">Overview of system operation</div>
+							<hr class="card-category">
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									<!-- <div id="circles-1"></div> -->
@@ -47,7 +48,7 @@
 									</h4>
 									{% endif %}
 									{% endwith %}
-									<a href=""
+									<a href="{% url 'users' %}"
 									style="text-decoration: none;"
 									>
 										<h6 class="fw-bold mt-3 mb-0">Manage Users</h6>
@@ -63,9 +64,9 @@
 									<h4>
 										{{ total_files }} files 
 									</h4>
-									{% else %}
+										{% else %}
 									<h4>
-										{{ total_files }} files
+										No files yet  :(
 									</h4>
 									{% endif %}
 									{% endwith %}
@@ -75,28 +76,28 @@
 										<h6 class="fw-bold mt-3 mb-0">View All</h6>
 									</a>
 								</div>
-								<div class="px-2 pb-2 pb-md-0 text-center">
+								<!-- <div class="px-2 pb-2 pb-md-0 text-center"> -->
 									<!-- <div id="circles-3"></div> -->
-									<h1>
-										<i class="fas fa-table"></i>
-									</h1>
-									{% with department.count as total_departments %}
-									{% if total_departments > 1 %}
-									<h4>
-										{{ total_departments }} departments 
-									</h4>
-									{% else %}
-									<h4>
-										{{ total_departments }} department 
-									</h4>
-									{% endif %}
-									{% endwith %}
-									<a href=""
-									style="text-decoration: none;"
-									>
-										<h6 class="fw-bold mt-3 mb-0">Manage Departments</h6>
-									</a>
-								</div>
+									<!-- <h1> -->
+										<!-- <i class="fas fa-table"></i> -->
+									<!-- </h1> -->
+									<!-- {% with department.count as total_departments %} -->
+									<!-- {% if total_departments > 1 %} -->
+									<!-- <h4> -->
+										<!-- {{ total_departments }} departments  -->
+									<!-- </h4> -->
+									<!-- {% else %} -->
+									<!-- <h4> -->
+										<!-- {{ total_departments }} department  -->
+									<!-- </h4> -->
+									<!-- {% endif %} -->
+									<!-- {% endwith %} -->
+									<!-- <a href="" -->
+									<!-- style="text-decoration: none;" -->
+									<!-- > -->
+										<!-- <h6 class="fw-bold mt-3 mb-0">Manage Departments</h6> -->
+									<!-- </a> -->
+								<!-- </div> -->
 							</div>
 						</div>
 					</div>

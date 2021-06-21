@@ -9,3 +9,4 @@ for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
       hash.update(myFilesEncoded)
 
       md5 = hash.hexdigest()
+      print(file, md5)

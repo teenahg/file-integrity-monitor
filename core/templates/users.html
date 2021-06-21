@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Files {% endblock %} 
+{% block title %} Users {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -10,7 +10,7 @@
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">Files Under Surveillance</h4>
+				<h4 class="page-title">System Users</h4>
 				<ul class="breadcrumbs">
 					<li class="nav-home">
 						<a href="{% url 'home' %}">
@@ -37,14 +37,9 @@
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title">Quick Actions &nbsp; &nbsp;
-								{% if files.count != 0 %}
-								<a href="{% url 'verify' %}">
-									<button onclick="location.href='{% url 'verify' %}'" class="btn btn-white btn-border btn-round mr-2">Verify Hashes</button>
+								<a href="">
+									<button class="btn btn-white btn-border btn-round mr-2">Add New Agent</button>
 								</a>
-								{% else %}
-								<button onclick="location.href='{% url 'script' %}'" class="btn btn-white btn-border btn-round mr-2">Generate Hashes</button>
-								{% endif %}
-								&nbsp;
 							</h4>							
 						</div>
 						<div class="card-body">
@@ -52,36 +47,36 @@
 								<table id="basic-datatables" class="display table table-striped table-hover" >
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Location</th>
-											<th>Hash</th>
-											<th>Published On</th>
-											<th>Created On</th>
+											<th>Username</th>
+											<th>Email</th>
+											<!-- <th>Hashed Password</th> -->
+											<th>Logon Status</th>
+											<!-- <th>Created On</th>
 											<th>Updated On</th>
-											<th>Slug</th>
+											<th>Slug</th> -->
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Name</th>
-											<th>Location</th>
-											<th>Hash</th>
-											<th>Published On</th>
-											<th>Created On</th>
+											<th>Username</th>
+											<th>Email</th>
+											<!-- <th>Hashed Password</th> -->
+											<th>Logon Status</th>
+											<!-- <th>Created On</th>
 											<th>Updated On</th>
-											<th>Slug</th>
+											<th>Slug</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
-										{% for file in files %}
+										{% for user in users %}
 										<tr>
-											<td>{{ file.name }}</td>
-											<td>{{ file.location }}</td>
-											<td>{{ file.hash_value }}</td>
-											<td>{{ file.publish }}</td>
-											<td>{{ file.created }}</td>
+											<td>{{ user.username }}</td>
+											<td>{{ user.email }}</td>
+											<!-- <td>{{ user.password }}</td> -->
+											<td>{{ user.is_active }}</td>
+											<!-- <td>{{ file.created }}</td>
 											<td>{{ file.updated }}</td>
-											<td>{{ file.slug }}</td>
+											<td>{{ file.slug }}</td> -->
 										</tr>
 										{% endfor %}
 									</tbody>
