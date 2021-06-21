@@ -68,7 +68,7 @@ def verify(request):
 
 @login_required(login_url="/login/")
 def output(request):
-    import os, sys, secrets
+    import os, sys
     import django
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     django.setup()
@@ -87,43 +87,38 @@ def output(request):
 
     def get_files():
         import os, hashlib
-        while True:
-        for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
-            with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
-                data =f.read
-                hash = hashlib.md5()
-                for chunk in iter(lambda: f.read(2048), ""):
-                    myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
-                    hash.update(myFilesEncoded)
-                    
+        
+        for file in os.scandir('.'):
+            if os.path.isfile(file):
+                with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
+                    data =f.read
+                    for chunk in iter(lambda: f.read(2048), ""):
+                        myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
+                        hash = hashlib.md5()
+                        hash.update(myFilesEncoded)    
                     md5 = hash.hexdigest()
-                    print(file, md5)
-        dir_entries = scandir('.')
-        for entry in dir_entries:
-            if entry.is_file():
-                hashv = md5
-                info = entry.stat()
-                name = entry.name
-                published = datetime.now()
-                created_date = convert_date(info.st_ctime)
-                modified_date = convert_date(info.st_mtime)
-                try:
-
-                    # creates a new instance of file and fills in the current file
-                    new_file = File(
-                        name = name, # file name
-                        location = entry.path, # file path
-                        hash_value = hashv, # file's created hash value
-                        slug = name, # file's slug value(name split with hyphens)
-                        publish = published,
-                        created = created_date,
-                        updated = modified_date,
-                    )
-                    new_file.save()
-                except Exception as e:
-                    print(e, e.__traceback__, " at line ", e.__traceback__.tb_lineno)
-                finally:
-                    print("All files have been saved")
+                    hashv = md5
+                    info = file.stat()
+                    name = file.name
+                    published = datetime.now()
+                    created_date = convert_date(info.st_ctime)
+                    modified_date = convert_date(info.st_mtime)
+                    try:
+                        # creates a new instance of file and fills in the current file
+                        new_file = File(
+                            name = name, # file name
+                            location = file.path, # file path
+                            hash_value = hashv, # file's created hash value
+                            slug = name, # file's slug value(name split with hyphens)
+                            publish = published,
+                            created = created_date,
+                            updated = modified_date,
+                            )
+                        new_file.save()
+                    except Exception as e:
+                        print(e, e.__traceback__, " at line ", e.__traceback__.tb_lineno)
+                    finally:
+                        print("All files have been saved")
     get_files()
     context = {'files': files,}
     # return render(request, 'tables-data.html', context)
