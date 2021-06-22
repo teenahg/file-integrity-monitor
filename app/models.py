@@ -12,13 +12,9 @@ class File(models.Model):
     name = models.CharField(max_length=350)
     location = models.CharField(max_length=350)
     hash_value = models.CharField(max_length=32)
-    slug = models.SlugField(max_length=250, unique_for_date='updated')
-    publish = models.DateTimeField()
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
-
+    
     class Meta:
-        ordering = ('-publish',)
+        ordering = ('name',)
     
     def __str__(self):
         return self.name

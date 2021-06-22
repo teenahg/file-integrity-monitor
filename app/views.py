@@ -79,11 +79,6 @@ def output(request):
     from os import scandir
     from app.models import File
 
-    def convert_date(timestamp):
-        d = datetime.utcfromtimestamp(timestamp)
-        formated_date = d.strftime('%Y-%m-%d %H:%M:%S')
-        return formated_date
-
     def get_files():
         import os, hashlib
         
@@ -99,19 +94,12 @@ def output(request):
                     hashv = md5
                     info = file.stat()
                     name = file.name
-                    published = datetime.now()
-                    created_date = convert_date(info.st_ctime)
-                    modified_date = convert_date(info.st_mtime)
                     try:
                         # creates a new instance of file and fills in the current file
                         new_file = File(
                             name = name, # file name
                             location = file.path, # file path
-                            hash_value = hashv, # file's created hash value
-                            slug = name, # file's slug value(name split with hyphens)
-                            publish = published,
-                            created = created_date,
-                            updated = modified_date,
+                            hash_value = hashv, # file's generated hash value
                             )
                         new_file.save()
                     except Exception as e:

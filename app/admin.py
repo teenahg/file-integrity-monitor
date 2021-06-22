@@ -8,9 +8,6 @@ from .models import File
 
 @admin.register(File)
 class FileAdmin(admin.ModelAdmin):
-    list_display = ('name', 'location', 'hash_value', 'slug')
-    list_filter = ('created', 'publish', 'location')
+    list_display = ('name', 'location', 'hash_value')
     search_fields = ('name', 'hash_value')
-    prepopulated_fields = {'slug': ('name',)}
-    date_hierarchy = 'publish'
-    ordering = ('publish',)
+    ordering = ('name',)
