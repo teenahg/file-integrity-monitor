@@ -73,7 +73,11 @@
 										<tr>
 											<td>{{ stored_file.name }}</td>
 											<td>{{ stored_file.hash_value }}</td>
-											<td>{{ stored_file.hash_value }}</td>
+											{% for file in files %}
+											<td>{{ file }}</td>
+											
+											<td>{{ file }}</td>
+											{% endfor %}
 											<td>{{ stored_file.publish }}</td>
 											<!-- <td>{{ stored_file.created }}</td>
 											<td>{{ stored_file.updated }}</td>
