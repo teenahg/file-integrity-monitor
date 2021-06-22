@@ -38,7 +38,7 @@
 						<div class="card-header">
 							<h4 class="card-title">Quick Actions &nbsp; &nbsp;
 								<a href="">
-									<button class="btn btn-white btn-border btn-round mr-2">Add New Agent</button>
+									<button class="btn btn-success btn-border btn-round mr-2">Add New Agent</button>
 								</a>
 							</h4>							
 						</div>
@@ -50,7 +50,7 @@
 											<th>Username</th>
 											<th>Email</th>
 											<!-- <th>Hashed Password</th> -->
-											<th>Logon Status</th>
+											<th>Role</th>
 											<!-- <th>Created On</th>
 											<th>Updated On</th>
 											<th>Slug</th> -->
@@ -61,7 +61,7 @@
 											<th>Username</th>
 											<th>Email</th>
 											<!-- <th>Hashed Password</th> -->
-											<th>Logon Status</th>
+											<th>Role</th>
 											<!-- <th>Created On</th>
 											<th>Updated On</th>
 											<th>Slug</th> -->
@@ -73,7 +73,11 @@
 											<td>{{ user.username }}</td>
 											<td>{{ user.email }}</td>
 											<!-- <td>{{ user.password }}</td> -->
-											<td>{{ user.is_active }}</td>
+											{% if user.is_staff %}
+											<td>Administrator</td>
+											{% else %}
+											<td>Staff</td>
+											{% endif %}
 											<!-- <td>{{ file.created }}</td>
 											<td>{{ file.updated }}</td>
 											<td>{{ file.slug }}</td> -->

@@ -45,25 +45,24 @@ def files(request):
 @login_required(login_url="/login/")
 def verify(request):
     import os,hashlib,time
+    from operator import itemgetter
     stored_files = File.objects.all()
     files={}
     # while True:
-    def confirm():
-        for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
+    for file in os.listdir('.'):
+        if os.path.isfile(file):
             with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
-                hash = hashlib.md5()
                 for chunk in iter(lambda: f.read(2048), ""):
                     myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
+                    hash = hashlib.md5()
                     hash.update(myFilesEncoded)
                 md5 = hash.hexdigest()
                 if file in files and md5 != files[file]:
                     print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
                     print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
                     files[file]=md5
-            # time.sleep(1)
-        return md5
-    confirm()
-    context = {'stored_files': stored_files, 'files': confirm,}
+                # time.sleep(1)
+    context = {'stored_files': stored_files, 'files': md5,}
     return render(request, 'verify.html', context)
 
 @login_required(login_url="/login/")

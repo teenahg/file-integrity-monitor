@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Checksum Verification {% endblock %} 
+{% block title %} Files {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -10,7 +10,7 @@
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">File Comparison</h4>
+				<h4 class="page-title">Checksum Comparison</h4>
 				<ul class="breadcrumbs">
 					<li class="nav-home">
 						<a href="{% url 'home' %}">
@@ -36,10 +36,11 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">An analysis of stored checksum against current checksum &nbsp; &nbsp;
-								<!-- <a href="">
-									<button class="btn btn-white btn-border btn-round mr-2">Add New Agent</button>
-								</a> -->
+							<h4 class="card-title">Checksum Verification Results &nbsp; &nbsp;
+								<a href="{% url 'verify' %}">
+									<button onclick="location.href='{% url 'verify' %}'" class="btn btn-success btn-border btn-round mr-2">Refresh</button>
+								</a>
+								&nbsp;
 							</h4>							
 						</div>
 						<div class="card-body">
@@ -47,9 +48,9 @@
 								<table id="basic-datatables" class="display table table-striped table-hover" >
 									<thead>
 										<tr>
-											<th>Filename</th>
-											<th>Stored Hash</th>
-											<th>Current Hash</th>
+											<th>Name</th>
+											<th>Stored Checksum</th>
+											<th>Current Checksum</th>
 											<th>Status</th>
 											<!-- <th>Created On</th>
 											<th>Updated On</th>
@@ -58,9 +59,9 @@
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Filename</th>
-											<th>Stored Hash</th>
-											<th>Current Hash</th>
+											<th>Name</th>
+											<th>Stored Checksum</th>
+											<th>Current Checksum</th>
 											<th>Status</th>
 											<!-- <th>Created On</th>
 											<th>Updated On</th>
@@ -72,13 +73,11 @@
 										<tr>
 											<td>{{ stored_file.name }}</td>
 											<td>{{ stored_file.hash_value }}</td>
-                                            {% for file in files %}
-											<td>{{ file }}</td>
-                                            {% endfor %}
-											<td>{{ stored_file.slug }}</td>
-											<!-- <td>{{ file.created }}</td>
-											<td>{{ file.updated }}</td>
-											<td>{{ file.slug }}</td> -->
+											<td>{{ stored_file.hash_value }}</td>
+											<td>{{ stored_file.publish }}</td>
+											<!-- <td>{{ stored_file.created }}</td>
+											<td>{{ stored_file.updated }}</td>
+											<td>{{ stored_file.slug }}</td> -->
 										</tr>
 										{% endfor %}
 									</tbody>
@@ -152,5 +151,3 @@
 	</script>
 
 {% endblock javascripts %}
-
-
