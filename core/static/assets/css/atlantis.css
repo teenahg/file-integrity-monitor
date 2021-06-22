@@ -8930,9 +8930,9 @@ body {
   background: linear-gradient(-45deg, #0A0B11, #1f283e) !important; }
 
 .bg-primary-gradient {
-  background: #1572E8 !important;
-  background: -webkit-linear-gradient(legacy-direction(-45deg), #06418E, #1572E8) !important;
-  background: linear-gradient(-45deg, #06418E, #1572E8) !important; }
+  background: #02224b !important;
+  background: -webkit-linear-gradient(legacy-direction(-45deg), #0c1529, #1f252e) !important;
+  background: linear-gradient(-45deg, #031f44, #1572E8) !important; }
 
 .bg-secondary-gradient {
   background: #6861CE !important;

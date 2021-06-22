@@ -53,10 +53,10 @@ def verify(request):
         if os.path.isfile(file):
             with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
                 for chunk in iter(lambda: f.read(2048), ""):
-                    myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                     hash = hashlib.md5()
+                    myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                     hash.update(myFilesEncoded)
-                md5 = hash.hexdigest()
+                    md5 = hash.hexdigest()
                 if file in files and md5 != files[file]:
                     print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
                     print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
