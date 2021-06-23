@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
-# from django.contrib.auth.models import AbstractUser, User
 from django.urls import reverse
-# from django.db.models.signals import post_save
 
 class PublishedManager(models.Manager):
     def get_queryset(self):

@@ -51,10 +51,6 @@
 											<th>Name</th>
 											<th>Stored Checksum</th>
 											<th>Current Checksum</th>
-											<th>Status</th>
-											<!-- <th>Created On</th>
-											<th>Updated On</th>
-											<th>Slug</th> -->
 										</tr>
 									</thead>
 									<tfoot>
@@ -62,10 +58,6 @@
 											<th>Name</th>
 											<th>Stored Checksum</th>
 											<th>Current Checksum</th>
-											<th>Status</th>
-											<!-- <th>Created On</th>
-											<th>Updated On</th>
-											<th>Slug</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
@@ -73,31 +65,7 @@
 										<tr>
 											<td>{{ stored_file.name }}</td>
 											<td>{{ stored_file.hash_value }}</td>
-											<td>{{ stored_file.publish }}</td>
-											<!-- <td>{{ stored_file.created }}</td>
-											<td>{{ stored_file.updated }}</td>
-											<td>{{ stored_file.slug }}</td> -->
-										</tr>
-										{% endfor %}
-
-									</tbody>
-								</table>
-
-								<table>
-									<thead>
-										<tr>
-											<td>Hash</td>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<td>Hash</td>
-										</tr>
-									</tfoot>
-									<tbody>
-										{% for file in files %}
-										<tr>
-											<td>{{ file }}</td>
+											<td>{% for file in files %}{{file}}{% endfor %}</td>
 										</tr>
 										{% endfor %}
 									</tbody>
@@ -106,10 +74,6 @@
 						</div>
 					</div>
 				</div>
-
-			
-
-				
 			</div>
 		</div>
 	</div>
