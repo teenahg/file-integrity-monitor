@@ -64,6 +64,11 @@
 									<h4>
 										{{ total_files }} files 
 									</h4>
+									<a href="{% url 'files' %}"
+									style="text-decoration: none;"
+									>
+										<h6 class="fw-bold mt-3 mb-0">View All</h6>
+									</a>
 										{% else %}
 									<h4>
 										No files yet  :(
@@ -71,7 +76,7 @@
 									<a href="{% url 'files' %}"
 									style="text-decoration: none;"
 									>
-										<h6 class="fw-bold mt-3 mb-0">View All</h6>
+										<h6 class="fw-bold mt-3 mb-0">Populate</h6>
 									</a>
 									{% endif %}
 									{% endwith %}

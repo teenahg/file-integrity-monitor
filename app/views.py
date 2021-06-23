@@ -48,7 +48,7 @@ def verify(request):
     from operator import itemgetter
     stored_files = File.objects.all()
     files = []
-    # while True:
+    # while True: # Continuously monitors, not recommended for web because the page won't stop loading
     for file in os.listdir('.'):
         if os.path.isfile(file):
             with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
