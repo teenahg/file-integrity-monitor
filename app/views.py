@@ -46,10 +46,13 @@ def files(request):
 def verify(request):
     import os,hashlib,time
     from operator import itemgetter
-    stored_files = File.objects.all()
-    files = []
+    stored_files = File.objects.all().values_list('hash_value',flat=True)
+    # files = stored_files
+    stored_files_list = list(stored_files)
+    # print(stored_files_list)
     # while True: # Continuously monitors, not recommended for web because the page won't stop loading
-    for file in os.listdir('.'):
+    current_md5 = []
+    for file in os.listdir('surveillance'):
         if os.path.isfile(file):
             with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
                 data = f.read
@@ -57,11 +60,19 @@ def verify(request):
                     myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                     hash = hashlib.md5()
                     hash.update(myFilesEncoded)
-        md5 = hash.hexdigest()
-        if file in files and md5 != files[file]:
-            print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
-            print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
-    files.append(md5)
+                    md5 = hash.hexdigest()
+                    current_md5.append(md5)
+                    print(current_md5, md5)
+        for i in current_md5:
+            print(i)
+                # for file in stored_files_list:
+                #     if file != md5:
+                # files.append(md5)
+                # if file in stored_files and md5 != stored_files[file]:
+                    # print(file)
+                    # print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
+                    # print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
+    # print(files)
                 # time.sleep(1)
     context = {'stored_files': stored_files, 'files': files,}
     return render(request, 'verify.html', context)
@@ -83,7 +94,7 @@ def output(request):
     def get_files():
         import os, hashlib
         
-        for file in os.scandir('.'):
+        for file in os.scandir('surveillance'):
             if os.path.isfile(file):
                 with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
                     data =f.read
