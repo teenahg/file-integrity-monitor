@@ -45,26 +45,29 @@ def files(request):
 @login_required(login_url="/login/")
 def verify(request):
     import os,hashlib,time
-    from operator import itemgetter
-    stored_files = File.objects.all().values_list('hash_value',flat=True)
-    # files = stored_files
-    stored_files_list = list(stored_files)
+    files = File.objects.all()
+    # hashes = File.objects.all().values_list('hash_value')
+    # hashes_list = list(hashes)
+    # for i in stored_file_hashes_list:
+    #     print(i)
+    # for a in files:
+    #     print(a)
     # print(stored_files_list)
     # while True: # Continuously monitors, not recommended for web because the page won't stop loading
-    current_md5 = []
-    for file in os.listdir('surveillance'):
-        if os.path.isfile(file):
-            with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
-                data = f.read
-                for chunk in iter(lambda: f.read(2048), ""):
-                    myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
-                    hash = hashlib.md5()
-                    hash.update(myFilesEncoded)
-                    md5 = hash.hexdigest()
-                    current_md5.append(md5)
-                    print(current_md5, md5)
-        for i in current_md5:
-            print(i)
+    # current_md5 = []
+    # for file in os.listdir('.'):
+    #     if os.path.isfile(file):
+    #         with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
+    #             data = f.read
+    #             for chunk in iter(lambda: f.read(2048), ""):
+    #                 myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
+    #                 hash = hashlib.md5()
+    #                 hash.update(myFilesEncoded)
+    #             md5 = hash.hexdigest()
+    #             current_md5.append(md5)
+                    # print(current_md5, md5)
+        # for i in current_md5:
+            # print(i)
                 # for file in stored_files_list:
                 #     if file != md5:
                 # files.append(md5)
@@ -74,7 +77,8 @@ def verify(request):
                     # print ('Stored hash: {} \t Current hash: {}'.format(files[file], md5))
     # print(files)
                 # time.sleep(1)
-    context = {'stored_files': stored_files, 'files': files,}
+    # context = {'stored_files': stored_files, 'files': files,}
+    context = {'files': files,}
     return render(request, 'verify.html', context)
 
 @login_required(login_url="/login/")
@@ -94,7 +98,7 @@ def output(request):
     def get_files():
         import os, hashlib
         
-        for file in os.scandir('surveillance'):
+        for file in os.scandir('.'):
             if os.path.isfile(file):
                 with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
                     data =f.read

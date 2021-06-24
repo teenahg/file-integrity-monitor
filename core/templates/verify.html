@@ -61,11 +61,11 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										{% for stored_file in stored_files %}
+										{% for file in files %}
 										<tr>
-											<td>{{ stored_file.name }}</td>
-											<td>{{ stored_file.hash_value }}</td>
-											<td>{% for file in files %}{{file}}{% endfor %}</td>
+											<td>{{ file }}</td>
+											<td>{{ file.hash_value }}</td>
+											<td>{{ file.hash_value }}</td>
 										</tr>
 										{% endfor %}
 									</tbody>
