@@ -74,8 +74,6 @@ def verify(request):
     hashes = []
     for file in files:
         hashes.append({'id': file.id, 'hash': hash(file)})
-    for i in hashes:
-        print(i)
     # prev_hashes = File.objects.all().values_list('hash_value')
     context = {'files': files, 'current_hashes': hashes,}
     return render(request, 'verify.html', context)
