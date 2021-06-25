@@ -44,7 +44,7 @@ def files(request):
 
 def hash(file):
     import os, hashlib
-    
+    hashes_list = []
     for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
         with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
             data =f.read
@@ -52,9 +52,24 @@ def hash(file):
             for chunk in iter(lambda: f.read(2048), ""):
                 myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                 hash.update(myFilesEncoded)
-    md5 = hash.hexdigest()
-    print(file, md5)
+                md5 = hash.hexdigest()
+    hashes_list.append(md5)
+    print(md5)                            
     return md5
+
+
+
+    
+        # if os.path.isfile(file):
+            # with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
+    #             data =f.read
+    #             for chunk in iter(lambda: f.read(2048), ""):
+    #                 myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
+    #                 hash = hashlib.md5()
+    #                 hash.update(myFilesEncoded)
+    # md5 = hash.hexdigest()
+    # print(md5)
+    # return md5
 
 @login_required(login_url="/login/")
 def verify(request):
@@ -76,6 +91,10 @@ def output(request):
     from django.utils import timezone
     from django.db import models
 
+    from datetime import datetime
+    from os import scandir
+    from app.models import File
+
     def get_files():
         import os, hashlib
         
@@ -87,8 +106,8 @@ def output(request):
                         myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                         hash = hashlib.md5()
                         hash.update(myFilesEncoded)    
-                    md5 = hash.hexdigest()
-                    hashv = md5
+                        md5 = hash.hexdigest()
+                        hashv = md5
                     info = file.stat()
                     name = file.name
                     try:
@@ -146,26 +165,3 @@ def output(request):
     # context = {'stored_files': stored_files, 'files': files,}
     # context = {'files': files,}
     # return render(request, 'verify.html', context)
-
-# import os, hashlib
-    # files = os.scandir('.')
-    # for file in files:
-    #     with open(file, 'r', encoding="ascii", errors="surrogateescape") as f:
-    #         data = f.read()
-    #         for chunk in iter(lambda: data(2048), ""):
-    #             file_encoding = str.encode(chunk,encoding="ascii", errors="surrogateescape")
-    #             hash.update(file_encoding)
-    #             md5_returned = hashlib.md5(data).hexdigest()
-    # return md5_returned
-
-    # return md5
-        # if os.path.isfile(file):
-            # with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
-    #             data =f.read
-    #             for chunk in iter(lambda: f.read(2048), ""):
-    #                 myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
-    #                 hash = hashlib.md5()
-    #                 hash.update(myFilesEncoded)
-    # md5 = hash.hexdigest()
-    # print(md5)
-    # return md5
