@@ -54,11 +54,8 @@ def hash(file):
                 hash.update(myFilesEncoded)
                 md5 = hash.hexdigest()
     hashes_list.append(md5)
-    print(md5)                            
+    print(md5)
     return md5
-
-
-
     
         # if os.path.isfile(file):
             # with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
@@ -77,6 +74,8 @@ def verify(request):
     hashes = []
     for file in files:
         hashes.append({'id': file.id, 'hash': hash(file)})
+    for i in hashes:
+        print(i)
     # prev_hashes = File.objects.all().values_list('hash_value')
     context = {'files': files, 'current_hashes': hashes,}
     return render(request, 'verify.html', context)
