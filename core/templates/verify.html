@@ -51,6 +51,7 @@
 											<th>Name</th>
 											<th>Stored Checksum</th>
 											<th>Current Checksum</th>
+											<th>Status</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -58,6 +59,7 @@
 											<th>Name</th>
 											<th>Stored Checksum</th>
 											<th>Current Checksum</th>
+											<th>Status</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -65,7 +67,22 @@
 										<tr>
 											<td>{{ file }}</td>
 											<td>{{ file.hash_value }}</td>
-											<td>{{ file.hash_value }}</td>
+											<td>
+												{% for hash in current_hashes %}
+													{% if hash.id == file.id %}
+														<span>{{ hash.hash }}</span>
+													{% endif %}
+												{% endfor %}
+											</td>
+											<td>
+												{% for hash in current_hashes %}
+													{% if file.id == hash.id and file.hash_value == hash.hash %}
+														<span class="text-success">No Changes</span>
+													{% elif file.id == hash.id and file.hash_value != hash.hash %}
+														<span class="text-danger">Changed</span>
+													{% endif %}
+												{% endfor %}
+											</td>
 										</tr>
 										{% endfor %}
 									</tbody>
