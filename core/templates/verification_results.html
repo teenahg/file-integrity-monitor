@@ -37,7 +37,7 @@
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title">Checksum Verification Results &nbsp; &nbsp;
-								<a href="{% url 'verify' %}">
+								<a href="">
 									<button onclick="location.href='{% url 'verify' %}'" class="btn btn-success btn-border btn-round mr-2">Refresh</button>
 								</a>
 								&nbsp;
@@ -63,25 +63,36 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										{% for file in files %}
+										{% for stored_file in stored_files %}
 										<tr>
-											<td>{{ file.name }}</td>
-											<td>{{ file.hash_value }}</td>
-											<td>
-												{% for hash in current_hashes %}
-													{% if hash.id == file.id %}
-														<span>{{ hash.hash }}</span>
+											<td>{{ stored_file.name }}</td>
+											<td>{{ stored_file.hash_value|truncatechars:15 }}</td>
+											<td>{% for current_file in current_files %}
+													{% if current_file.name == stored_file.name %}
+														{{ current_file.hash_value|truncatechars:15 }}
 													{% endif %}
 												{% endfor %}
 											</td>
 											<td>
-												{% for hash in current_hashes %}
-													{% if file.id == hash.id and file.hash_value == hash.hash %}
-														<span class="text-success">No Changes</span>
-													{% elif file.id == hash.id and file.hash_value != hash.hash %}
-														<span class="text-danger">Changed</span>
-													{% endif %}
-												{% endfor %}
+                                                {% for current_file in current_files %}
+                                                    {% if current_file.name == stored_file.name %}
+                                                        {% if current_file.hash_value == stored_file.hash_value %}
+                                                        <!-- <i class="fas fa-check" style="color: green;"> -->
+														<span class="text-success">No changes</span>
+                                                        {% else %}
+															<!-- <i class="fas fa-times" style="color: red;"> -->
+                                                            <span class="text-danger">Changed</span>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+
+												<!-- {% if stored_file.name == current_file.name and stored_file.hash_value == current_file.hash_value %}
+													<span class="text-success">No Changes</span>
+                                                {% elif stored_file.id != current_file.id and stored_file.hash_value == current_file.hash_value %}
+													<span class="text-danger">No Changes</span>
+                                                {% else %}
+													<span class="text-danger">Changed</span>
+												{% endif %} -->
 											</td>
 										</tr>
 										{% endfor %}

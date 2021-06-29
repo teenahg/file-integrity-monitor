@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Checksum Comparison {% endblock %} 
+{% block title %} Comparison of Generated and stored checksums {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -10,7 +10,7 @@
 	<div class="content">
 		<div class="page-inner">
 			<div class="page-header">
-				<h4 class="page-title">Checksum Comparison</h4>
+				<h4 class="page-title">Checksum Verification</h4>
 				<ul class="breadcrumbs">
 					<li class="nav-home">
 						<a href="{% url 'home' %}">
@@ -36,12 +36,12 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title">Checksum Verification Results &nbsp; &nbsp;
-								<a href="{% url 'verify' %}">
-									<button onclick="location.href='{% url 'verify' %}'" class="btn btn-success btn-border btn-round mr-2">Refresh</button>
+							<h6 class="card-title">You can now compare your stored file hashes with the current ones &nbsp; &nbsp;
+								<a href="{% url 'verification_results' %}">
+									<!-- <button onclick="location.href='{% url 'verify' %}'" class="btn btn-success btn-border btn-round mr-2">View Results</button> -->
+									<button class="btn btn-success btn-border btn-round mr-2">View Results</button>
 								</a>
-								&nbsp;
-							</h4>							
+							</h6>							
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -49,40 +49,23 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-											<th>Stored Checksum</th>
-											<th>Current Checksum</th>
-											<th>Status</th>
+											<th>Location</th>
+											<th>Hash Value</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 											<th>Name</th>
-											<th>Stored Checksum</th>
-											<th>Current Checksum</th>
-											<th>Status</th>
+											<th>Location</th>
+											<th>Hash Value</th>
 										</tr>
 									</tfoot>
 									<tbody>
 										{% for file in files %}
 										<tr>
 											<td>{{ file.name }}</td>
-											<td>{{ file.hash_value }}</td>
-											<td>
-												{% for hash in current_hashes %}
-													{% if hash.id == file.id %}
-														<span>{{ hash.hash }}</span>
-													{% endif %}
-												{% endfor %}
-											</td>
-											<td>
-												{% for hash in current_hashes %}
-													{% if file.id == hash.id and file.hash_value == hash.hash %}
-														<span class="text-success">No Changes</span>
-													{% elif file.id == hash.id and file.hash_value != hash.hash %}
-														<span class="text-danger">Changed</span>
-													{% endif %}
-												{% endfor %}
-											</td>
+											<td>{{ file.location }}</td>
+											<td>{{ file.hash_value|truncatechars:15 }}</td>
 										</tr>
 										{% endfor %}
 									</tbody>
@@ -91,6 +74,10 @@
 						</div>
 					</div>
 				</div>
+
+			
+
+				
 			</div>
 		</div>
 	</div>

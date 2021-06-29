@@ -10,6 +10,10 @@ urlpatterns = [
     path('output/', views.output, name='script'),
     path('users/', views.users, name='users'),
     path('verify/', views.verify, name='verify'),
+    path('checksum_verification/', views.checksum_verification, name='checksum_verification'),
+    path('verification_results/', views.verification_results, name='verification_results'),
+
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
+    
 ]
