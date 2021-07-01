@@ -1,0 +1,13 @@
+<!-- <button onclick="location.href='{% url 'compare' %}'">Compare</button> <hr> -->
+
+<form action="/external/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Compare">
+</form>
+
+{% for a in all %}
+{{ a.name }} <br>
+{{ a.hash_value }} <br>
+{{ a.location }} <br>
+<br>
+{% endfor %}

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Python Button Script</title>
+    </head>
+    <body>
+        <button onclick="location.href='{% url 'output_results' %}'">Execute Script</button> <hr>
+            {% for f in files %}
+                {{ f }}
+            {{% endfor %}
+    </body>
+</html>

@@ -4,6 +4,12 @@ from app import views
 urlpatterns = [
     # The home page
     path('', views.index, name='home'),
+    path('results', views.button),
+    path('output_results', views.res, name='output_results'),
+    path('all', views.all, name='all'),
+    path('external', views.external),
+    path('continues', views.continues),
+    path('compare', views.compare, name='compare'),
     # The Files Dashboard Page
     path('files/', views.files, name='files'),
     path('output/', views.output),

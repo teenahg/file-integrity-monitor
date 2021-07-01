@@ -66,34 +66,32 @@
 										{% for stored_file in stored_files %}
 										<tr>
 											<td>{{ stored_file.name }}</td>
+
 											<td>{{ stored_file.hash_value|truncatechars:15 }}</td>
-											<td>{% for current_file in current_files %}
-													{% if current_file.name == stored_file.name %}
+											
+											<td>
+												{% for current_file in current_files %}
+													{% if stored_file.name == current_file.name and stored_file.location == current_file.location %}
 														{{ current_file.hash_value|truncatechars:15 }}
 													{% endif %}
 												{% endfor %}
 											</td>
+											
 											<td>
                                                 {% for current_file in current_files %}
-                                                    {% if current_file.name == stored_file.name %}
+                                                    {% if current_file.name == stored_file.name and current_file.location == stored_file.location %}
                                                         {% if current_file.hash_value == stored_file.hash_value %}
-                                                        <!-- <i class="fas fa-check" style="color: green;"> -->
-														<span class="text-success">No changes</span>
+                                                        <i class="fas fa-check" style="color: green;">
+														<!-- <span class="text-success">No changes</span> -->
                                                         {% else %}
-															<!-- <i class="fas fa-times" style="color: red;"> -->
-                                                            <span class="text-danger">Changed</span>
+															<i class="fas fa-times" style="color: red;">
+                                                            <!-- <span class="text-danger">Changed</span> -->
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endfor %}
 
-												<!-- {% if stored_file.name == current_file.name and stored_file.hash_value == current_file.hash_value %}
-													<span class="text-success">No Changes</span>
-                                                {% elif stored_file.id != current_file.id and stored_file.hash_value == current_file.hash_value %}
-													<span class="text-danger">No Changes</span>
-                                                {% else %}
-													<span class="text-danger">Changed</span>
-												{% endif %} -->
 											</td>
+
 										</tr>
 										{% endfor %}
 									</tbody>
@@ -163,3 +161,11 @@
 	</script>
 
 {% endblock javascripts %}
+
+<!-- {% if stored_file.name == current_file.name and stored_file.hash_value == current_file.hash_value %}
+													<span class="text-success">No Changes</span>
+                                                {% elif stored_file.id != current_file.id and stored_file.hash_value == current_file.hash_value %}
+													<span class="text-danger">No Changes</span>
+                                                {% else %}
+													<span class="text-danger">Changed</span>
+												{% endif %} -->

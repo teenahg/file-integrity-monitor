@@ -8,13 +8,15 @@ from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
 
+def signin(request):
+    return render(request, 'signin.html')
+
 def login_view(request):
     form = LoginForm(request.POST or None)
 
     msg = None
 
     if request.method == "POST":
-
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
@@ -24,7 +26,7 @@ def login_view(request):
                 return redirect("/")
             else:    
                 msg = 'Invalid credentials'    
-        else:
+        else:   
             msg = 'Error validating the form'    
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg})

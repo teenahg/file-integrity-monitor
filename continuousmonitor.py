@@ -11,6 +11,6 @@ while True:
     sha256 = hash.hexdigest()
     if file in files and sha256 != files[file]:
       print ('File change alert: %s on %s'%(file, time.strftime("%Y-%m-%d %H:%M:%S")))
-      print ('Stored hash: {} \t Current hash: {}'.format(files[file], sha256))
+      print ('Stored hashes: {} \t Current hash: {}'.format(files[file], sha256))
     files[file]=sha256
   # time.sleep(1)

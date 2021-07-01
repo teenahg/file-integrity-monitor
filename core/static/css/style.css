@@ -1,0 +1,17 @@
+ h1 { 
+	color: white;	
+} 
+
+th, td {
+	padding: 10px;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

@@ -9,6 +9,6 @@ def gen():
         myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
         hash.update(myFilesEncoded)
         md5 = hash.hexdigest()
-        print(file, md5)
+        # print(file, md5)
   return md5
 gen()
