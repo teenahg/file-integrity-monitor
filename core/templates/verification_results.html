@@ -81,10 +81,10 @@
                                                 {% for current_file in current_files %}
                                                     {% if current_file.name == stored_file.name and current_file.location == stored_file.location %}
                                                         {% if current_file.hash_value == stored_file.hash_value %}
-                                                        <i class="fas fa-check" style="color: green;">
+                                                        <i class="fas fa-check" style="color: green;"> Unchanged
 														<!-- <span class="text-success">No changes</span> -->
                                                         {% else %}
-															<i class="fas fa-times" style="color: red;">
+															<i class="fas fa-times" style="color: red;"> Changed
                                                             <!-- <span class="text-danger">Changed</span> -->
                                                         {% endif %}
                                                     {% endif %}

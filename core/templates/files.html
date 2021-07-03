@@ -18,6 +18,13 @@
 							&nbsp; &nbsp;Home
 						</a>
 					</li>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<li class="nav-home">
+						<a href="{% url 'files' %}">
+							<i class="fas flaticon-file"></i>
+							&nbsp; &nbsp;Files
+						</a>
+					</li>
 					<!-- <li class="separator">
 						<i class="flaticon-right-arrow"></i>
 					</li> -->
@@ -36,6 +43,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
+						{% if user.is_staff %}
 							<h4 class="card-title">Quick Actions &nbsp; &nbsp;
 								{% if files.count != 0 %}
 								<a href="{% url 'checksum_verification' %}">
@@ -47,6 +55,15 @@
 								&nbsp;
 							</h4>							
 						</div>
+						{% else %}
+						<h4 class="card-title text-muted" style="text-align: center;">
+							<span style="text-transform: uppercase;">
+								{{ user.username }}
+							</span>
+							: this is the list of files under surveillance
+							<hr>
+						</h4>
+						{% endif %}
 						<div class="card-body">
 							<div class="table-responsive">
 								<table id="basic-datatables" class="display table table-striped table-hover" >

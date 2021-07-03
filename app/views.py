@@ -44,50 +44,63 @@ def verify(request):
 def verification_results(request):
     stored_files = File.objects.all()
     current_files = cFile.objects.all()
-    # if stored_files == current_files:
-    #     print('ok')
-    # else:
-    #     print('not ok')
-    # print(stored_files)
-    # print(current_files)
-    # send_mail('Subject here', 'Here is the message.', 'from@example.com', ['ozh76377@eoopy.com'], fail_silently=False,)
 
     import smtplib # Imports smtplib module
     import os # Imports os module
     from email.message import EmailMessage # Imports EmailMessage Class
+    from email.utils import make_msgid
 
-    from bar import get_files
+    for sfile in stored_files:
+        for cfile in current_files:
+            if sfile.location == cfile.location and sfile.name == cfile.name:
+                if sfile.hash_value == cfile.hash_value:
+                    pass
+                else:
+                    # file_object = File.objects.all()
+                    # updated_stored_file = file_object(
+                    #     name = cfile.name,
+                    #     location = cfile.location,
+                    #     hash_value = cfile.hash_value,
+                    # )
+                    # updated_file.save()
+                    print('changed')
+                    #  Grabs Environment Variables
+                    EMAIL_ADDRESS = 'tinashemgondwa@gmail.com'
+                    PASSWORD = 'B0y5t33n@#'
+                    # PASSWORD = os.environ.get('APP_PASSWORD')
+                    # Creates a new message
+                    msg = EmailMessage()
+                    asparagus_cid = make_msgid()
+                    msg['Subject'] = 'File Modification Alert: {}'.format(sfile)
+                    msg['From'] = EMAIL_ADDRESS
+                    msg['To'] = EMAIL_ADDRESS # Varies
+                    msg.add_alternative("""
+                    <html>
+                        <body>
+                            <p>You are receiving this notification because your email is set as the Report-To address on the Shared Network Monitor.
+                            The following changes have been made:</p>
+                            <b>File Name:</b> {} <br>
+                            <b>Location:</b> {} <br>
+                            <b>Stored Checksum:</b> {} <br>
+                            <b>Current Checksum:</b> {} <br>
+                            <br>
+                            <p>You might want to review this action if you did not authorise it.</p>
+                            <br>
+                            <b style="text-align: center;">&copy;2021 pyMonitor</b>
+                        </body>
+                    </html>
+""".format(sfile, sfile.location, sfile.hash_value, cfile.hash_value, asparagus_cid=asparagus_cid[1:-1]), subtype='html')
 
-    for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
-        get_files(file)
-        print(file)
-
-    li = []
-    for file in os.listdir('.'):
-        if os.path.isfile(file):
-            with open(file, 'r', encoding="ascii", errors="surrogateescape") as f:
-                for chunk in iter(lambda: f.read(2048), ""):
-                    hash = hashlib.sha256()
-                    sha256 = hash.hexdigest()
-                    li.append(sha256)
-    for i in li:
-        val = i
-
-    #  Grabs Environment Variables
-    # EMAIL_ADDRESS = 'tinashemgondwa@gmail.com'
-    # PASSWORD = 'B0y5t33n@#'
-    # # PASSWORD = os.environ.get('APP_PASSWORD')
-    # # Creates a new message
-    # msg = EmailMessage()
-    # msg['Subject'] = 'Python Email'
-    # msg['From'] = EMAIL_ADDRESS
-    # msg['To'] = EMAIL_ADDRESS # Varies
-    # msg.set_content(val)
-    # # Context Manager
-    # with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-    #     # Logs into mail server
-    #     smtp.login(EMAIL_ADDRESS, PASSWORD)
-    #     smtp.send_message(msg)
+                    # .format(sfile, sfile.location, sfile.hash_value, cfile.hash_value))
+                    # Context Manager
+                    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+                        smtp.starttls()
+                        # Logs into mail server
+                        smtp.login(EMAIL_ADDRESS, PASSWORD)
+                        smtp.send_message(msg)
+                        smtp.quit()
+            else:
+                pass
 
     context = {'stored_files': stored_files, 'current_files': current_files}
     return render(request, 'verification_results.html', context)
@@ -218,6 +231,7 @@ def output(request):
 
 @login_required(login_url="/login/")
 def checksum_verification(request):
+    cfiles = cFile.objects.all()
     def get_files():
         for file in os.scandir('.'):
             if os.path.isfile(file):
@@ -232,12 +246,15 @@ def checksum_verification(request):
                     info = file.stat()
                     name = file.name
                     try:
-                        new_file = cFile(
-                            name = name, # file name
-                            location = file.path, # file path
-                            hash_value = hashv, # file's created hash value
-                            )
-                        new_file.save()
+                        if hashv in cfiles:
+                            pass
+                        else:
+                            new_file = cFile(
+                                name = name, # file name
+                                location = file.path, # file path
+                                hash_value = hashv, # file's created hash value
+                                )
+                            new_file.save()
                     except Exception as e:
                         print(e, e.__traceback__, " at line ", e.__traceback__.tb_lineno)
                     finally:

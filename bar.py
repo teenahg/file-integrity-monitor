@@ -1,6 +1,7 @@
 def get_files(file):
     import os,hashlib,time
 
+    #commented line of code
     for file in [item for item in os.listdir('.') if os.path.isfile(item)]:
         with open(file,'r', encoding="ascii", errors="surrogateescape") as f:
             hash = hashlib.sha256()
@@ -8,3 +9,5 @@ def get_files(file):
                 myFilesEncoded = str.encode(chunk,encoding="ascii", errors="surrogateescape")
                 hash.update(myFilesEncoded)
                 sha256 = hash.hexdigest()
+                print(sha256)
+    # return sha256

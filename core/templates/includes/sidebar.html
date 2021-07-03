@@ -63,12 +63,14 @@
 											<span class="sub-item">View Files</span>
 										</a>
 									</li>
+									{% if user.is_staff %}
 									<li>
 										<a href="{% url 'users' %}">
 											<i class="fas flaticon-file"></i>
 											<span class="sub-item">View Staff</span>
 										</a>
 									</li>
+									{% endif %}
 									<!-- <li>
 										<a href="{% url 'files' %}">
 											<i class="fas fa-chart-bar"></i>

@@ -15,11 +15,13 @@
 						<h5 class="text-white pb-2">Dashboard &hyphen; File Integrity Monitor</h5>
 						<h5 class="text-white op-7 mb-2"></h5>
 					</div>
+					{% if user.is_staff %}
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="{% url 'files' %}" class="btn btn-success btn-border btn-round mr-2">Monitor Files</a>
 						<a href="{% url 'users' %}" class="btn btn-success btn-border btn-round mr-2">View Staff</a>
 						<!-- <a href="" class="btn btn-success btn-border btn-round mr-2">View Departments</a> -->
 					</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -28,10 +30,16 @@
 				<div class="col">
 					<div class="card full-height">
 						<div class="card-body">
-							<div class="card-title" style="text-align: center;">Overall statistics</div>
-							<div class="card-category" style="text-align: center;">Overview of system operation</div>
+							{% if user.is_staff %}
+								<div class="card-title" style="text-align: center;">Overall statistics</div>
+								<div class="card-category" style="text-align: center;">Overview of system operation</div>
+							{% else %}
+								<div class="card-title" style="text-align: center;">Hi {{ user.username }}</div>
+								<div class="card-category" style="text-align: center;">You are viewing this page because you are a part of the pyMonitor surveillance team</div>
+							{% endif %}
 							<hr class="card-category">
 							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+								{% if user.is_staff %}
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									<!-- <div id="circles-1"></div> -->
 									<h1>
@@ -54,6 +62,7 @@
 										<h6 class="fw-bold mt-3 mb-0">Manage Users</h6>
 									</a>
 								</div>
+								{% endif %}
 								<div class="px-2 pb-2 pb-md-0 text-center">
 									<!-- <div id="circles-2"></div> -->
 									<h1>
@@ -73,11 +82,12 @@
 									<h4>
 										No files yet  :(
 									</h4>
+									{% if user.is_staff %}
 									<a href="{% url 'files' %}"
-									style="text-decoration: none;"
-									>
+									style="text-decoration: none;">
 										<h6 class="fw-bold mt-3 mb-0">Populate</h6>
 									</a>
+									{% endif %}
 									{% endif %}
 									{% endwith %}
 								</div>
